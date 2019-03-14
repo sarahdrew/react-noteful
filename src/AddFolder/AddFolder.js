@@ -66,9 +66,7 @@ export default class AddFolder extends Component {
             />
           </div>
           <div className="buttons">
-            <button onClick={() => this.handleSubmit()} type="submit">
-              Add folder
-            </button>
+            <button type="submit">Add folder</button>
           </div>
         </NotefulForm>
       </section>
