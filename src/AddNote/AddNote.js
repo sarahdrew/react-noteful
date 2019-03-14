@@ -12,12 +12,12 @@ export default class AddNote extends Component {
   };
   static contextType = ApiContext;
 
-  handleSubmit = e => {
-    e.preventDefault();
+  handleSubmit = event => {
+    event.preventDefault();
     const newNote = {
-      name: e.target["note-name"].value,
-      content: e.target["note-content"].value,
-      folderId: e.target["note-folder-id"].value,
+      name: event.target["note-name"].value,
+      content: event.target["note-content"].value,
+      folderId: event.target["note-folder-id"].value,
       modified: new Date()
     };
     fetch(`${config.API_ENDPOINT}/notes`, {
@@ -42,6 +42,7 @@ export default class AddNote extends Component {
 
   render() {
     const { folders = [] } = this.context;
+    //map over each folder to grab the id, and then display the name to the dom as an option in the selector
     return (
       <section className="AddNote">
         <h2>Create a note</h2>
@@ -58,6 +59,7 @@ export default class AddNote extends Component {
             <label htmlFor="note-folder-select">Folder</label>
             <select id="note-folder-select" name="note-folder-id">
               <option value={null}>...</option>
+
               {folders.map(folder => (
                 <option key={folder.id} value={folder.id}>
                   {folder.name}

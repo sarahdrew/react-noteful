@@ -51,6 +51,8 @@ class App extends Component {
 
   handleDeleteNote = noteId => {
     this.setState({
+      //set state so that we filter the notes to keep those that do not match the ID what has been clicked
+
       notes: this.state.notes.filter(note => note.id !== noteId)
     });
   };

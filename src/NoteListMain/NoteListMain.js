@@ -13,6 +13,7 @@ export default class NoteListMain extends React.Component {
       params: {}
     }
   };
+  //add context
   static contextType = ApiContext;
 
   render() {

@@ -2,9 +2,20 @@ import React, { Component } from "react";
 import NotefulForm from "../NotefulForm/NotefulForm";
 import ApiContext from "../ApiContext";
 import config from "../config";
+import PropTypes from "prop-types";
 import "./AddFolder.css";
 
 export default class AddFolder extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: ""
+    };
+  }
+
+  updateName(name) {
+    this.setState({ name });
+  }
   static defaultProps = {
     history: {
       push: () => {}
@@ -12,10 +23,11 @@ export default class AddFolder extends Component {
   };
   static contextType = ApiContext;
 
-  handleSubmit = e => {
-    e.preventDefault();
+  handleSubmit = event => {
+    event.preventDefault();
+    //grab name of folder
     const folder = {
-      name: e.target["folder-name"].value
+      name: event.target["folder-name"].value
     };
     fetch(`${config.API_ENDPOINT}/folders`, {
       method: "POST",
@@ -24,9 +36,11 @@ export default class AddFolder extends Component {
       },
       body: JSON.stringify(folder)
     })
-      .then(res => {
-        if (!res.ok) return res.json().then(e => Promise.reject(e));
-        return res.json();
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(e => Promise.reject(e));
+        }
+        return response.json();
       })
       .then(folder => {
         this.context.addFolder(folder);
@@ -40,14 +54,21 @@ export default class AddFolder extends Component {
   render() {
     return (
       <section className="AddFolder">
-        <h2>Create a folder</h2>
+        <h2>Create a new folder</h2>
         <NotefulForm onSubmit={this.handleSubmit}>
           <div className="field">
-            <label htmlFor="folder-name-input">Name</label>
-            <input type="text" id="folder-name-input" name="folder-name" />
+            <label htmlFor="folder-name-input">Name: </label>
+            <input
+              type="text"
+              id="folder-name-input"
+              name="folder-name"
+              onChange={e => this.updateName(e.target.value)}
+            />
           </div>
           <div className="buttons">
-            <button type="submit">Add folder</button>
+            <button onClick={() => this.handleSubmit()} type="submit">
+              Add folder
+            </button>
           </div>
         </NotefulForm>
       </section>
