@@ -74,4 +74,9 @@ export default class AddNote extends Component {
       </section>
     );
   }
+  // AddNote.PropTypes = {
+  //   name: PropTypes.string,
+  //content: PropTypes.string,
+
+  //   }
 }

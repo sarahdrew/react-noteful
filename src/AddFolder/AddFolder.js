@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NotefulForm from "../NotefulForm/NotefulForm";
 import ApiContext from "../ApiContext";
 import config from "../config";
-import PropTypes from "prop-types";
+//import PropTypes from "prop-types";
 import "./AddFolder.css";
 
 export default class AddFolder extends Component {
@@ -62,7 +62,7 @@ export default class AddFolder extends Component {
               type="text"
               id="folder-name-input"
               name="folder-name"
-              onChange={e => this.updateName(e.target.value)}
+              onChange={event => this.updateName(event.target.value)}
             />
           </div>
           <div className="buttons">
@@ -72,4 +72,8 @@ export default class AddFolder extends Component {
       </section>
     );
   }
+
+  // AddFolder.PropTypes = {
+  //   name: PropTypes.string
+  //   }
 }
