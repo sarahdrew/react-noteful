@@ -1,3 +1,3 @@
 export default {
-  API_ENDPOINT: "ec2-23-23-92-204.compute-1.amazonaws.com"
+  API_ENDPOINT: "gentle-harbor-83457.herokuapp.com"
 };
