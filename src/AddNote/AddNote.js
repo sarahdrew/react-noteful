@@ -7,7 +7,7 @@ import "./AddNote.css";
 export default class AddNote extends Component {
   static defaultProps = {
     history: {
-      push: () => {}
+      push: () => { }
     }
   };
   static contextType = ApiContext;
@@ -17,7 +17,7 @@ export default class AddNote extends Component {
     const newNote = {
       name: event.target["note-name"].value,
       content: event.target["note-content"].value,
-      folderId: event.target["note-folder-id"].value,
+      folder_id: event.target["note-folder-id"].value,
       modified: new Date()
     };
     fetch(`${config.API_ENDPOINT}/notes`, {
@@ -33,7 +33,7 @@ export default class AddNote extends Component {
       })
       .then(note => {
         this.context.addNote(note);
-        this.props.history.push(`/folder/${note.folderId}`);
+        this.props.history.push(`/folder/${note.folder_id}`);
       })
       .catch(error => {
         console.error({ error });
