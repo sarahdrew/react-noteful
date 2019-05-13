@@ -8,7 +8,7 @@ import "./Note.css";
 
 export default class Note extends React.Component {
   static defaultProps = {
-    onDeleteNote: () => {}
+    onDeleteNote: () => { }
   };
   static contextType = ApiContext;
 
@@ -41,7 +41,7 @@ export default class Note extends React.Component {
     return (
       <div className="Note">
         <h2 className="Note__title">
-          <Link to={`/note/${id}`}>{name}</Link>
+          <Link to={`/notes/${id}`}>{name}</Link>
         </h2>
         <button
           className="Note__delete"

@@ -12,15 +12,32 @@ import config from "../config";
 import "./App.css";
 
 class App extends Component {
-  state = {
-    notes: [],
-    folders: []
-  };
+
+  constructor() {
+    super();
+    this.state = {
+      notes: [],
+      folders: []
+    }
+  }
 
   componentDidMount() {
+    this.loadData();
+    console.log(`this is this `, this);
+    console.log(`config api `, config.API_ENDPOINT)
+    // filter through notes and add them to specific folders based on id
+    // set state in each folder with notes accordingly
+  }
+
+  loadData() {
     fetch(`${config.API_ENDPOINT}/folders`)
+      .then(res => {
+        console.log(res)
+        return res;
+      })
       .then(res => res.json())
       .then(folders => {
+        console.log(`this is the folders in set state `, folders)
         this.setState({ folders });
         return fetch(`${config.API_ENDPOINT}/notes`);
       }).then(res => res.json())
@@ -52,13 +69,16 @@ class App extends Component {
     });
   };
 
+  //use an event on NoteListNav to tell its parent that the folder_id is different
+
+
   renderNavRoutes() {
     return (
       <>
-        {["/", "/folder/:folderId"].map(path => (
+        {["/", "/folder/:folder_id"].map(path => (
           <Route exact key={path} path={path} component={NoteListNav} />
         ))}
-        <Route path="/note/:noteId" component={NotePageNav} />
+        <Route path="/notes/:noteId" component={NotePageNav} />
         <Route path="/add-folder" component={NotePageNav} />
         <Route path="/add-note" component={NotePageNav} />
       </>
@@ -68,10 +88,10 @@ class App extends Component {
   renderMainRoutes() {
     return (
       <>
-        {["/", "/folder/:folderId"].map(path => (
+        {["/", "/folder/:folder_id"].map(path => (
           <Route exact key={path} path={path} component={NoteListMain} />
         ))}
-        <Route path="/note/:noteId" component={NotePageMain} />
+        <Route path="/notes/:noteId" component={NotePageMain} />
         <Route path="/add-folder" component={AddFolder} />
         <Route path="/add-note" component={AddNote} />
       </>
@@ -79,6 +99,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('app state: ', this.state)
     const value = {
       notes: this.state.notes,
       folders: this.state.folders,
