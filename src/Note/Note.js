@@ -22,11 +22,14 @@ export default class Note extends React.Component {
         "content-type": "application/json"
       }
     })
-      .then(res => {
-        if (!res.ok) return res.json().then(e => Promise.reject(e));
-        return res.json();
-      })
+      // .then(res => {
+      //   console.log(`res is :`, res)
+      //   if (!res.ok) return res.json().then(e => Promise.reject(e));
+
+      //   return res.json();
+      // })
       .then(() => {
+        console.log(`this is the Noteid after fetching and deleting `, noteId)
         this.context.deleteNote(noteId);
         // allows the parent to perform extra behaviour
         this.props.onDeleteNote(noteId);
